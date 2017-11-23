@@ -36,8 +36,7 @@ ActiveAdmin.register Company do
                      {toolbarButtons: ['undo', 'redo', '|', 'bold', 'italic']}}}
       f.input :logotype, hint: f.object.logotype.present? \
         ? image_tag(f.object.logotype.url(:thumb))
-        : content_tag(:span, "no cover page yet")
-      # f.input :logotype_cache, as: :hidden
+        : content_tag(:span, "no logotype yet")
       if f.object.logotype.present?
         f.semantic_fields_for :logotype_attributes do |logotype_fields|
           logotype_fields.input :_destroy, as: :boolean, label: 'Delete?'
@@ -46,6 +45,4 @@ ActiveAdmin.register Company do
     end
     f.actions
   end
-
-
 end
