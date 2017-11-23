@@ -1,5 +1,5 @@
 ActiveAdmin.register Company do
-  permit_params :logotype, :name, :description
+  permit_params :name, :description, :logotype, logotype_attributes: [:_destroy]
 
   index do
     selectable_column
@@ -38,6 +38,11 @@ ActiveAdmin.register Company do
         ? image_tag(f.object.logotype.url(:thumb))
         : content_tag(:span, "no cover page yet")
       # f.input :logotype_cache, as: :hidden
+      if f.object.logotype.present?
+        f.semantic_fields_for :logotype_attributes do |logotype_fields|
+          logotype_fields.input :_destroy, as: :boolean, label: 'Delete?'
+        end
+      end
     end
     f.actions
   end
